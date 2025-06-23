@@ -3,31 +3,36 @@ const bankAccount = {
     accountNumber: "12345687",
     balance: 1000,
     deposit(amount) {
-        this.balance += amount
-        alert(`ваш рахунок поповнено на ${amount} загальна сума на вашому рахунку ${this.balance}`)
+        let { balance } = this;
+        balance += amount;
+        this.balance = balance;
+        alert(`Ваш рахунок поповнено на ${amount}, загальна сума на вашому рахунку: ${balance}`);
     },
     withdraw(amount) {
-        if (this.balance >= amount) {
-            this.balance -= amount
-            alert(`Зняття коштів успішне зараз на вашому рахунку ${this.balance}`)
+        let { balance } = this;
+        if (balance >= amount) {
+            balance -= amount;
+            this.balance = balance;
+            alert(`Зняття коштів успішне. Зараз на вашому рахунку: ${balance}`);
         } else {
-            alert(`Недостатньо коштів на вашому рахунку ${this.balance}! Ви хочете зняти ${amount}`)
+            alert(`Недостатньо коштів (на рахунку ${balance})! Ви хочете зняти ${amount}`);
         }
     },
-}
-if (confirm("Бажаете поповнити рахунок?")) {
+};
+
+if (confirm("Бажаєте поповнити рахунок?")) {
     const amount = parseFloat(prompt(`Введіть суму для поповнення`));
     if (!isNaN(amount) && amount > 0) {
-        bankAccount.deposit(amount)
+        bankAccount.deposit(amount);
     } else {
-        alert(`Некоректно введені дані`)
+        alert(`Некоректно введені дані`);
     }
-} else if (confirm(`Чи бажаете ви зняти гроші?`)) {
-    const amount = parseFloat(prompt(`Введіть суму для зняття`))
+} else if (confirm(`Чи бажаєте ви зняти гроші?`)) {
+    const amount = parseFloat(prompt(`Введіть суму для зняття`));
     if (!isNaN(amount) && amount > 0) {
-        bankAccount.withdraw(amount)
+        bankAccount.withdraw(amount);
     } else {
-        alert(`Не коректно введені дані`)
+        alert(`Некоректно введені дані`);
     }
 }
 
